@@ -1,84 +1,83 @@
-*
-# Binary Bit Ops – Secure Hybrid Development Environment
+*# Binary Bit Ops – Secure Hybrid Development Environment
 
 ## Project Overview
 
-This project focuses on designing, implementing, and evaluating a Secure Hybrid Development Environment that combines on-premises and cloud-based resources to support secure software development.
+Binary Bit Ops is a Python-based Proof of Concept (POC) developed within a Secure Hybrid Development Environment. The project demonstrates how a controlled development platform can support secure software development using both on-premises and cloud resources.
 
-The environment follows a dogfooding approach where developers use the environment being built to develop and test a Proof of Concept (POC) application called Binary Bit Ops. This approach validates that the environment supports real-world software development activities while meeting security, performance, scalability, and usability requirements.
+The environment follows a **dogfooding approach**, where developers use the same system being designed to build and test applications. This ensures the environment is practical, secure, and suitable for real-world DevOps workflows.
 
-The hybrid architecture integrates both on-premises and cloud infrastructure components, enabling secure source code management, continuous integration and delivery (CI/CD), automated testing, containerization, and deployment.
+---
 
-## Hybrid Environment Architecture
+## Hybrid Development Environment
 
-### On-Premises Resources
+### On-Premises Components
 
-* Developer Workstations
-* Git Repository
-* Jenkins CI/CD Server
-* SonarQube Code Quality Server
-* Local Network Infrastructure
-* Security Monitoring Tools
+* Developer workstations (Windows 11)
+* Git for source control
+* Jenkins CI/CD server
+* SonarQube code quality analysis
 
-### Cloud Resources
+### Cloud Components
 
-* Cloud Virtual Machines
-* Kubernetes Cluster
-* Container Registry
-* Cloud Storage
-* Backup and Recovery Services
-* Monitoring and Logging Services
+* Cloud virtual machines
+* Containerized deployment environment (Docker/Kubernetes)
+* Cloud storage and backup systems
+* Monitoring and logging services
 
-### Security Features
+---
+
+## Security Features
 
 * Role-Based Access Control (RBAC)
-* Multi-Factor Authentication (MFA)
-* Secure VPN Connectivity
-* Encrypted Data Storage
-* Secure Source Code Management
-* Automated Security Scanning
+* Secure source code management (Git/GitHub)
+* Encrypted communication channels (HTTPS/SSH)
+* Automated code scanning (SonarQube)
+* Secure CI/CD pipeline integration (Jenkins)
 
-## Proof of Concept (Binary Bit Ops)
+---
 
-Binary Bit Ops is a Python application developed within the Secure Hybrid Development Environment to demonstrate:
+## Proof of Concept Application
 
-* Bitwise AND operations
-* Bitwise OR operations
-* Bitwise XOR operations
+Binary Bit Ops is a Python application used to demonstrate:
+
+* Bitwise AND, OR, XOR operations
 * Binary number processing
-* Source control integration
-* CI/CD pipeline execution
+* Basic DevOps integration (build, test, commit workflow)
 
-## Technologies Used
-
-* Python 3
-* Git
-* GitHub
-* Visual Studio Code
-* Docker
-* Jenkins
-* SonarQube
-* Kubernetes
-* Windows 11
+---
 
 ## DevOps Workflow
 
-1. Developer writes code in VS Code.
-2. Source code is committed to Git.
-3. Code is pushed to GitHub.
-4. Jenkins triggers automated builds.
-5. SonarQube performs code quality analysis.
-6. Docker packages the application into containers.
-7. Kubernetes deploys the application to the cloud environment.
+1. Developer writes code in VS Code
+2. Code is version-controlled using Git
+3. Code is pushed to GitHub repository
+4. Jenkins automates build and testing
+5. SonarQube performs code quality analysis
+6. Docker packages the application (optional containerization)
 
-## Team Members
+---
 
-* Kagiso – Cloud Engineer
-* Thoriso – Cloud Engineer
+## Tools Used
+
+* Python 3
+* Visual Studio Code
+* Git & GitHub
+* Jenkins
+* SonarQube
+* Docker
+* Windows 11
+
+---
+
+## Author
+
 * Mahlatse – DevOps Engineer
+
+---
 
 ## Project Status
 
-Phase 1 – Environment Setup and Tool Evaluation
+Phase 1 – Environment setup and POC development completed
+
 
 *
