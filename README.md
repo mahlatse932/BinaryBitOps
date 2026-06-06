@@ -1,71 +1,84 @@
-*# Binary Bit Ops
+*
+# Binary Bit Ops – Secure Hybrid Development Environment
 
 ## Project Overview
 
-Binary Bit Ops is a Python-based application developed as a Proof of Concept (POC) within a Secure Hybrid Development Environment.
+This project focuses on designing, implementing, and evaluating a Secure Hybrid Development Environment that combines on-premises and cloud-based resources to support secure software development.
 
-The project demonstrates binary and bitwise operations while validating the DevOps tools, workflows, and development environment used throughout the project lifecycle.
+The environment follows a dogfooding approach where developers use the environment being built to develop and test a Proof of Concept (POC) application called Binary Bit Ops. This approach validates that the environment supports real-world software development activities while meeting security, performance, scalability, and usability requirements.
 
-## Features
+The hybrid architecture integrates both on-premises and cloud infrastructure components, enabling secure source code management, continuous integration and delivery (CI/CD), automated testing, containerization, and deployment.
 
-* Bitwise AND operation
-* Bitwise OR operation
-* Bitwise XOR operation
+## Hybrid Environment Architecture
+
+### On-Premises Resources
+
+* Developer Workstations
+* Git Repository
+* Jenkins CI/CD Server
+* SonarQube Code Quality Server
+* Local Network Infrastructure
+* Security Monitoring Tools
+
+### Cloud Resources
+
+* Cloud Virtual Machines
+* Kubernetes Cluster
+* Container Registry
+* Cloud Storage
+* Backup and Recovery Services
+* Monitoring and Logging Services
+
+### Security Features
+
+* Role-Based Access Control (RBAC)
+* Multi-Factor Authentication (MFA)
+* Secure VPN Connectivity
+* Encrypted Data Storage
+* Secure Source Code Management
+* Automated Security Scanning
+
+## Proof of Concept (Binary Bit Ops)
+
+Binary Bit Ops is a Python application developed within the Secure Hybrid Development Environment to demonstrate:
+
+* Bitwise AND operations
+* Bitwise OR operations
+* Bitwise XOR operations
 * Binary number processing
-* Python implementation
-* Git version control integration
+* Source control integration
+* CI/CD pipeline execution
 
 ## Technologies Used
 
 * Python 3
-* Visual Studio Code
 * Git
 * GitHub
+* Visual Studio Code
+* Docker
+* Jenkins
+* SonarQube
+* Kubernetes
 * Windows 11
 
-## Installation
+## DevOps Workflow
 
-1. Clone the repository:
+1. Developer writes code in VS Code.
+2. Source code is committed to Git.
+3. Code is pushed to GitHub.
+4. Jenkins triggers automated builds.
+5. SonarQube performs code quality analysis.
+6. Docker packages the application into containers.
+7. Kubernetes deploys the application to the cloud environment.
 
-```bash
-git clone https://github.com/mahlatse932/BinaryBitOps.git
-```
+## Team Members
 
-2. Navigate to the project folder:
-
-```bash
-cd BinaryBitOps
-```
-
-3. Run the application:
-
-```bash
-python binarybitops.py
-```
-
-## Example Output
-
-```text
-AND: 1
-OR : 7
-XOR: 6
-```
-
-## DevOps Components
-
-This project uses:
-
-* Git for source control
-* GitHub for remote repository management
-* VS Code for development
-* Secure Hybrid Development Environment architecture
-
-## Author
-
-Mahlatse Mokoana
+* Kagiso – Cloud Engineer
+* Thoriso – Cloud Engineer
+* Mahlatse – DevOps Engineer
 
 ## Project Status
 
-In Development
+Phase 1 – Environment Setup and Tool Evaluation
 
 *
