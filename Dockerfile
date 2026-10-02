@@ -1,7 +1,12 @@
 FROM python:3.12-slim
 
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1
+
 WORKDIR /app
 
-COPY . .
+COPY --chown=10001:10001 binarybitops.py /app/binarybitops.py
+
+USER 10001:10001
 
 CMD ["python", "binarybitops.py"]
