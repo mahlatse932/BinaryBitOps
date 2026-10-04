@@ -1,0 +1,52 @@
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  name: build-image
+  namespace: binarybitops-ci
+spec:
+  params:
+    - name: image-tag
+      type: string
+  workspaces:
+    - name: source
+    - name: artifacts
+  volumes:
+    - name: build-cache
+      emptyDir:
+        sizeLimit: 2Gi
+  steps:
+    - name: build
+      image: moby/buildkit:v0.33.1-rootless
+      env:
+        - name: BUILDKITD_FLAGS
+          value: "--oci-worker-no-process-sandbox --oci-worker-snapshotter=native"
+      computeResources:
+        requests:
+          cpu: 250m
+          memory: 256Mi
+        limits:
+          cpu: "1"
+          memory: 2Gi
+          ephemeral-storage: 3Gi
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        seccompProfile:
+          type: Unconfined
+        appArmorProfile:
+          type: Unconfined
+      volumeMounts:
+        - name: build-cache
+          mountPath: /home/user/.local/share/buildkit
+      script: |
+        #!/bin/sh
+        set -eu
+        mkdir -p /tmp/build-source
+        cp -L "$(workspaces.source.path)"/* /tmp/build-source/
+        buildctl-daemonless.sh build \
+          --frontend dockerfile.v0 \
+          --local context=/tmp/build-source \
+          --local dockerfile=/tmp/build-source \
+          --output "type=docker,name=binarybitops-demo:$(params.image-tag),dest=$(workspaces.artifacts.path)/image.tar"
+        ls -lh "$(workspaces.artifacts.path)/image.tar"

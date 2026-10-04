@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: binarybitops-demo-1ab7ca0
+  name: binarybitops-demo-1ab7ca0-demo-01
   namespace: binarybitops-demo
 spec:
   backoffLimit: 0
@@ -23,7 +23,7 @@ spec:
           type: RuntimeDefault
       containers:
         - name: app
-          image: 445137568300.dkr.ecr.eu-north-1.amazonaws.com/binarybitops-demo@sha256:04aa23ef6cda03a51cd4cfde3699e414b482c89e6e7e5b153f371c2a6a523795
+          image: 445137568300.dkr.ecr.eu-north-1.amazonaws.com/binarybitops-demo@sha256:a0d226ae3f1c88dc624dcdaae313125bb36e6f979a65a3cb45b5336300c5fdc5
           resources:
             requests:
               cpu: 50m

@@ -1,0 +1,59 @@
+apiVersion: tekton.dev/v1
+kind: Pipeline
+metadata:
+  name: binarybitops-delivery
+  namespace: binarybitops-ci
+spec:
+  params:
+    - name: image-tag
+      type: string
+  workspaces:
+    - name: source
+    - name: artifacts
+  tasks:
+    - name: tests
+      taskRef:
+        name: python-tests
+      workspaces:
+        - name: source
+          workspace: source
+
+    - name: source-scan
+      runAfter: ["tests"]
+      taskRef:
+        name: source-scan
+      workspaces:
+        - name: source
+          workspace: source
+
+    - name: build
+      runAfter: ["source-scan"]
+      taskRef:
+        name: build-image
+      params:
+        - name: image-tag
+          value: $(params.image-tag)
+      workspaces:
+        - name: source
+          workspace: source
+        - name: artifacts
+          workspace: artifacts
+
+    - name: image-scan
+      runAfter: ["build"]
+      taskRef:
+        name: image-scan
+      workspaces:
+        - name: artifacts
+          workspace: artifacts
+
+    - name: publish
+      runAfter: ["image-scan"]
+      taskRef:
+        name: publish-image
+      params:
+        - name: image-tag
+          value: $(params.image-tag)
+      workspaces:
+        - name: artifacts
+          workspace: artifacts

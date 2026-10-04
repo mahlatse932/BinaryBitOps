@@ -1,0 +1,47 @@
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  name: publish-image
+  namespace: binarybitops-ci
+spec:
+  params:
+    - name: image-tag
+      type: string
+  workspaces:
+    - name: artifacts
+  volumes:
+    - name: registry-auth
+      secret:
+        secretName: ecr-publish-auth
+        items:
+          - key: .dockerconfigjson
+            path: config.json
+  steps:
+    - name: push
+      image: gcr.io/go-containerregistry/crane:v0.22.1
+      command: ["/ko-app/crane"]
+      args:
+        - push
+        - $(workspaces.artifacts.path)/image.tar
+        - 445137568300.dkr.ecr.eu-north-1.amazonaws.com/binarybitops-demo:$(params.image-tag)
+      env:
+        - name: DOCKER_CONFIG
+          value: /registry-auth
+      volumeMounts:
+        - name: registry-auth
+          mountPath: /registry-auth
+          readOnly: true
+      computeResources:
+        requests:
+          cpu: 100m
+          memory: 128Mi
+        limits:
+          cpu: 500m
+          memory: 512Mi
+          ephemeral-storage: 512Mi
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop: ["ALL"]
