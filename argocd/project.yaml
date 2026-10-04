@@ -1,0 +1,16 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: binarybitops-demo
+  namespace: argocd
+spec:
+  description: BinaryBitOps demonstration deployment
+  sourceRepos:
+    - https://github.com/mahlatse932/BinaryBitOps.git
+  destinations:
+    - namespace: binarybitops-demo
+      server: https://kubernetes.default.svc
+  clusterResourceWhitelist: []
+  namespaceResourceWhitelist:
+    - group: batch
+      kind: Job

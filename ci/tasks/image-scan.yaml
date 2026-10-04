@@ -1,0 +1,36 @@
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  name: image-scan
+  namespace: binarybitops-ci
+spec:
+  workspaces:
+    - name: artifacts
+  steps:
+    - name: scan
+      image: aquasec/trivy:0.75.0
+      computeResources:
+        requests:
+          cpu: 100m
+          memory: 256Mi
+        limits:
+          cpu: "1"
+          memory: 1Gi
+          ephemeral-storage: 2Gi
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop: ["ALL"]
+      script: |
+        #!/bin/sh
+        set -eu
+        trivy image \
+          --input "$(workspaces.artifacts.path)/image.tar" \
+          --cache-dir /tmp/trivy-cache \
+          --scanners vuln \
+          --severity HIGH,CRITICAL \
+          --exit-code 1 \
+          --timeout 5m \
+          --no-progress

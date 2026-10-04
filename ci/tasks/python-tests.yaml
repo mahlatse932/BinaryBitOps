@@ -1,0 +1,33 @@
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  name: python-tests
+  namespace: binarybitops-ci
+spec:
+  workspaces:
+    - name: source
+  steps:
+    - name: test
+      image: python:3.12.15-alpine3.24
+      workingDir: $(workspaces.source.path)
+      env:
+        - name: PYTHONDONTWRITEBYTECODE
+          value: "1"
+      computeResources:
+        requests:
+          cpu: 100m
+          memory: 64Mi
+        limits:
+          cpu: 500m
+          memory: 256Mi
+          ephemeral-storage: 512Mi
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop: ["ALL"]
+      script: |
+        #!/bin/sh
+        set -eu
+        python -m unittest discover -s . -p 'test_*.py' -v

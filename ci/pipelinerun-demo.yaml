@@ -1,0 +1,25 @@
+apiVersion: tekton.dev/v1
+kind: PipelineRun
+metadata:
+  name: delivery-1ab7ca0-demo-01
+  namespace: binarybitops-ci
+spec:
+  pipelineRef:
+    name: binarybitops-delivery
+  params:
+    - name: image-tag
+      value: 1ab7ca0-demo-01
+  timeouts:
+    pipeline: 30m
+    tasks: 25m
+  taskRunTemplate:
+    podTemplate:
+      securityContext:
+        fsGroup: 1000
+  workspaces:
+    - name: source
+      configMap:
+        name: source-1ab7ca0
+    - name: artifacts
+      persistentVolumeClaim:
+        claimName: build-workspace
