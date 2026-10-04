@@ -1,0 +1,14 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: binarybitops-demo
+  namespace: argocd
+spec:
+  project: binarybitops-demo
+  source:
+    repoURL: https://github.com/mahlatse932/BinaryBitOps.git
+    targetRevision: main
+    path: gitops
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: binarybitops-demo
