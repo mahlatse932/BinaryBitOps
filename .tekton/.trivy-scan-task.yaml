@@ -1,0 +1,19 @@
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  name: trivy-scan
+spec:
+  params:
+    - name: IMAGE_URL
+      type: string
+  steps:
+    - name: scan
+      image: docker.io/aquasec/trivy:latest
+      script: |
+        #!/usr/bin/env sh
+        set -e
+        trivy image \
+          --exit-code 1 \
+          --severity HIGH,CRITICAL \
+          --no-progress \
+          $(params.IMAGE_URL)
