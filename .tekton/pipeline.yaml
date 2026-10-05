@@ -1,0 +1,42 @@
+apiVersion: tekton.dev/v1
+kind: Pipeline
+metadata:
+  name: hde-delivery-pipeline
+spec:
+  params:
+    - name: repo-url
+    - name: revision
+    - name: image-tag
+  workspaces:
+    - name: shared-workspace
+  tasks:
+    - name: fetch-source
+      taskRef:
+        name: git-clone
+      params:
+        - name: url
+          value: $(params.repo-url)
+        - name: revision
+          value: $(params.revision)
+      workspaces:
+        - name: output
+          workspace: shared-workspace
+
+    - name: trivy-scan
+      runAfter: [fetch-source]
+      taskRef:
+        name: trivy-scan
+      params:
+        - name: IMAGE_URL
+          value: "your-registry/your-app:$(params.image-tag)"
+
+    - name: build-and-push
+      runAfter: [trivy-scan]
+      taskRef:
+        name: kaniko
+      params:
+        - name: IMAGE
+          value: "your-registry/your-app:$(params.image-tag)"
+      workspaces:
+        - name: source
+          workspace: shared-workspace
